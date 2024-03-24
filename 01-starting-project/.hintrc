@@ -1,16 +1,17 @@
 {
   "extends": [
-    "development"
+    "web-recommended"
   ],
   "hints": {
     "compat-api/css": [
       "default",
       {
         "ignore": [
-          "-webkit-text-size-adjust",
-          "font-synthesis"
+          "font-synthesis",
+          "-webkit-text-size-adjust"
         ]
       }
-    ]
+    ],
+    "html-checker": "off"
   }
 }
