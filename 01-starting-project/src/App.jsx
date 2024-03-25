@@ -7,8 +7,7 @@ import TabButton from "./components/TabButton/TabButton.jsx";
 import TabContent from "./components/TabContent/TabContent.jsx";
 
 function App() {
-
-    const [ selectedTopic, setSelectedTopic ] = useState("components");
+    const [selectedTopic, setSelectedTopic] = useState();
 
     function clickHandler(selectedButton) {
         setSelectedTopic(selectedButton);
@@ -21,34 +20,49 @@ function App() {
                 <section id="core-concepts">
                     <h2>Core Concepts</h2>
                     <ul>
-                        <CoreConcepts {...CORE_CONCEPTS[0]} />
+                        {/* <CoreConcepts {...CORE_CONCEPTS[0]} />
                         <CoreConcepts {...CORE_CONCEPTS[1]} />
                         <CoreConcepts {...CORE_CONCEPTS[2]} />
-                        <CoreConcepts {...CORE_CONCEPTS[3]} />
+                        <CoreConcepts {...CORE_CONCEPTS[3]} /> */}
+                        {CORE_CONCEPTS.map((element) => (
+                            <CoreConcepts key={element.title} {...element} />
+                        ))}
                     </ul>
                 </section>
 
                 <section id="examples">
                     <h2>Examples</h2>
                     <menu>
-                        <TabButton clickFunc={() => clickHandler("components")}>
+                        <TabButton
+                            isClicked={selectedTopic === "components"}
+                            clickFunc={() => setSelectedTopic("components")}
+                        >
                             Components
                         </TabButton>
-                        <TabButton clickFunc={() => clickHandler("jsx")}>
+                        <TabButton
+                            isClicked={selectedTopic === "jsx"}
+                            clickFunc={() => setSelectedTopic("jsx")}
+                        >
                             JSX
                         </TabButton>
-                        <TabButton clickFunc={() => clickHandler("props")}>
+                        <TabButton
+                            isClicked={selectedTopic === "props"}
+                            clickFunc={() => setSelectedTopic("props")}
+                        >
                             Props
                         </TabButton>
-                        <TabButton clickFunc={() => clickHandler("state")}>
+                        <TabButton
+                            isClicked={selectedTopic === "state"}
+                            clickFunc={() => setSelectedTopic("state")}
+                        >
                             State
                         </TabButton>
                     </menu>
-                    <TabContent number={6} {...EXAMPLES[selectedTopic]}>
-                        <h2>Hello World</h2>
-                        <p>This is a test</p>
-                    </TabContent>
-
+                    {selectedTopic ? (
+                        <TabContent {...EXAMPLES[selectedTopic]} />
+                    ) : (
+                        <p>Please select a topic.</p>
+                    )}
                 </section>
                 <h2>Time to get started!</h2>
             </main>
